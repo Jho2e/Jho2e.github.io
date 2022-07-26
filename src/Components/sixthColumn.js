@@ -101,6 +101,9 @@ const CheckBox = styled.form.attrs(
 
 const CheckBox2 = styled.div`
   margin-bottom: 3%;
+  > label {
+    margin-right: 2%;
+  }
   > input#chk_top {
     display: none;
   }
