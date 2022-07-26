@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import Navtop from "./Components/nav-top";
+import FirstColumn from "./Components/firstColumn";
+import SecondColumn from "./Components/secondColumn";
+import ThirdColumn from "./Components/thirdColumn";
+import FourthColumn from "./Components/fourthColumn";
+import FifthColumn from "./Components/fifthColumn";
+import SixthColumn from "./Components/sixthColumn";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navtop />
+      <FirstColumn />
+      <SecondColumn />
+      <ThirdColumn />
+      <FourthColumn />
+      <FifthColumn />
+      <SixthColumn />
+    </>
   );
 }
 
