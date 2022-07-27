@@ -57,6 +57,8 @@ const Gallery5Column = styled.div`
 `;
 
 const Relative = styled.div`
+  margin-top: 30%;
+
   position: relative;
   width: 100%;
   height: 100%;

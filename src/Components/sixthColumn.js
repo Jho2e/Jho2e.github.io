@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Gallery6column = styled.div`
+  margin-top: 10%;
   padding-left: 5%;
   padding-right: 2%;
 
@@ -149,6 +150,13 @@ const FooterCard = styled.div`
 let bold = {
   fontWeight: "bold",
 };
+
+/* 
+보낼정보
+
+성별 , 이메일, 이름
+ */
+
 export default function SixthColumn() {
   return (
     <>
