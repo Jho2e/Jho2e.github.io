@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import AddressInput from "./addressInput";
 
 const Gallery6column = styled.div`
   margin-top: 10%;
@@ -66,77 +67,7 @@ const Gallery6column = styled.div`
     }
   }
 `;
-
-const Btn = styled.div`
-  box-sizing: border-box;
-  background-color: black;
-  color: white;
-  width: 70%;
-  height: 5vh;
-
-  font-size: 0.9em;
-  font-weight: 500;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-`;
-
-const CheckBox = styled.form.attrs(
-  { action: "#" },
-  { method: "get" },
-  { id: "gallery6-form" }
-)`
-  > input {
-    width: 70%;
-    height: 4vh;
-    box-sizing: border-box;
-  }
-  > input::placeholder {
-    padding-left: 2%;
-  }
-`;
-/* 체크박스 만들기*/
-
-/*input 은 숨겨주기*/
-
-const CheckBox2 = styled.div`
-  margin-bottom: 3%;
-  > label {
-    margin-right: 2%;
-  }
-  > input#chk_top {
-    display: none;
-  }
-  /*input 바로 다음의 label*/
-  input#chk_top + label {
-    cursor: pointer;
-  }
-
-  /*input 바로 다음의 label:before 에 체크하기 전 CSS 설정*/
-  input#chk_top + label:before {
-    content: "";
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    line-height: 17px;
-    border: 1px solid #cbcbcb;
-    vertical-align: middle; /*체크 전과 체크 후 높이 차이 때문에 설정*/
-  }
-
-  /*checked된 input 바로 다음의 label:before 에 체크 후 CSS 설정*/
-  input#chk_top:checked + label:before {
-    content: "\f00c"; /*폰트어썸 유니코드*/
-    font-family: "Font Awesome 5 free"; /*폰트어썸 아이콘 사용*/
-    font-weight: 900; /*폰트어썸 설정*/
-    color: black;
-    background-color: white;
-    border: 1px solid black;
-    font-size: 1em;
-    text-align: center;
-  }
-`;
-
+/*
 const FooterCard = styled.div`
   width: 100%;
   > img {
@@ -146,7 +77,7 @@ const FooterCard = styled.div`
     object-fit: cover;
   }
 `;
-
+*/
 let bold = {
   fontWeight: "bold",
 };
@@ -162,7 +93,7 @@ export default function SixthColumn() {
     <>
       <Gallery6column>
         <div className="grid6__column">
-          <div className="grid6-1">
+          {/*  <div className="grid6-1">
             <span>SUBSCRIBE AND GET 10% OFF YOUR FIRST ORDER</span>
 
             <CheckBox2>
@@ -180,10 +111,15 @@ export default function SixthColumn() {
             </CheckBox>
 
             <Btn>
-              <span>WOMEN'S</span>
-              <span>MEN'S</span>
+              <div>
+                <span>WOMEN'S</span>
+              </div>
+              <div>
+                <span>MEN'S</span>
+              </div>
             </Btn>
-          </div>
+          </div> */}
+          <AddressInput />
 
           <div className="grid6-2">
             <div>
@@ -223,10 +159,11 @@ export default function SixthColumn() {
           </div>
         </div>
       </Gallery6column>
-
+      {/*
       <FooterCard>
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ARk84r_lTvJterbBQ1FlPuAID6Vp5u0-eGk-XhnhZeHeKdbwe-PvFlRE1kl3YD9QVA&usqp=CAU" />
       </FooterCard>
+  */}
     </>
   );
 }

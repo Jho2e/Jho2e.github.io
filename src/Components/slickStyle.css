@@ -93,8 +93,8 @@ slick.css 를 복붙함
   text-align: center;
 }
 .slick-slide > div > div > img {
-  width: 50%;
-  height: 500px;
+  width: 70%;
+  height: 20%;
   margin-bottom: 3%;
 }
 .slick-slide > div > div > span {
