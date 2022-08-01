@@ -85,7 +85,7 @@ const ClothImg = styled.div`
   }
 `;
 
-export default function SecondColumn() {
+export default function SecondColumn({ product }) {
   const [cloth, setCloth] = useState(
     "https://i.pinimg.com/originals/cc/2d/9a/cc2d9a1ec09d4bb0a31cc9df7c581bdb.jpg"
   );
@@ -106,6 +106,11 @@ export default function SecondColumn() {
       "https://img.ssfshop.com/cmd/LB_500x660/src/https://img.ssfshop.com/goods/8SBR/22/02/24/GM0022022493006_0_ORGINL_20220304153410780.jpg"
     );
     setIsmens(true);
+  };
+
+  const onMoveToProduct = () => {
+    // product.current.focus();
+    product.current.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -148,7 +153,7 @@ export default function SecondColumn() {
             <img alt="profile" src={cloth} />
           </div>
         </ClothImg>
-        <button>VIEW ALL PRODUCTS</button>
+        <button onClick={onMoveToProduct}>VIEW ALL PRODUCTS</button>
       </Gallery2Column>
     </>
   );

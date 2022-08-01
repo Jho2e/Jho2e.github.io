@@ -1,3 +1,5 @@
+import { forwardRef } from "react";
+
 import styled from "styled-components";
 import SlideShow from "./slideShow";
 
@@ -68,11 +70,11 @@ const Gallery4Column = styled.div`
   */
 `;
 
-export default function FourthColumn() {
+function FourthColumn(props, ref) {
   return (
     <>
       <Gallery4Column>
-        <div className="gallery4-intro">
+        <div className="gallery4-intro" ref={ref}>
           <span>Look like</span>
           <span>CAMILLE JAFFAR & MAX HUNTER</span>
         </div>
@@ -98,3 +100,5 @@ export default function FourthColumn() {
     </>
   );
 }
+
+export default forwardRef(FourthColumn);

@@ -1,3 +1,5 @@
+import { useRef } from "react";
+
 import Navtop from "./Components/nav-top";
 import FirstColumn from "./Components/firstColumn";
 import SecondColumn from "./Components/secondColumn";
@@ -7,13 +9,14 @@ import FifthColumn from "./Components/fifthColumn";
 import SixthColumn from "./Components/sixthColumn";
 
 function App() {
+  const productRef = useRef(null);
   return (
     <>
       <Navtop />
       <FirstColumn />
-      <SecondColumn />
+      <SecondColumn product={productRef} />
       <ThirdColumn />
-      <FourthColumn />
+      <FourthColumn ref={productRef} />
       <FifthColumn />
       <SixthColumn />
     </>

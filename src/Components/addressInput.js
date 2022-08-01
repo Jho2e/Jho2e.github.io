@@ -108,7 +108,6 @@ export default function AddressInput() {
     emailAdress: text,
     sex: isWomens ? "Woman" : "man",
   };
-  console.log(userInfo);
 
   const onWomens = () => {
     setIsWomens(true);
@@ -156,7 +155,7 @@ export default function AddressInput() {
             setText(e.target.value);
           }}
         />
-        <div>
+        <div onClick={() => console.log(userInfo)}>
           <img
             alt="profile"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlJQ3F_vX_Bt633SdGGovZWrbIvXLhwvhW3Nn5FVRoEE7KGJyKMiJN10I80EzwDKX7DVQ&usqp=CAU"
