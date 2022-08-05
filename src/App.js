@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import Navtop from "./Components/nav-top";
+import Navtop from "./Components/Nav-top";
 import FirstColumn from "./Components/firstColumn";
 import SecondColumn from "./Components/secondColumn";
 import ThirdColumn from "./Components/thirdColumn";

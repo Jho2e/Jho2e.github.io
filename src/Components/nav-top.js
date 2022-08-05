@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 const NavtopHeader = styled.header`
   display: flex;
   align-items: center;
@@ -22,7 +22,7 @@ const NavtopHeader = styled.header`
   > div {
     margin-right: 3%;
 
-    h1 {
+    > a > h1 {
       margin-right: 3%;
       white-space: nowrap;
 
@@ -31,9 +31,12 @@ const NavtopHeader = styled.header`
 
       letter-spacing: -2px;
     }
-    > a {
+    > h2 {
       display: none;
       color: black;
+      cursor: pointer;
+
+      margin-top: 1%;
     }
   }
   > nav {
@@ -44,7 +47,7 @@ const NavtopHeader = styled.header`
     > ul {
       display: flex;
 
-      margin-right: 60%;
+      margin-right: 40%;
 
       box-sizing: border-box;
       list-style: none;
@@ -52,7 +55,8 @@ const NavtopHeader = styled.header`
       > li:not(li:last-child) {
         margin-right: 12%;
       }
-      > li > span {
+      > li > span,
+      > li > a > span {
         white-space: nowrap;
 
         font-size: 0.8em;
@@ -67,23 +71,41 @@ const NavtopHeader = styled.header`
   @media screen and (max-width: 780px) {
     // header
     flex-direction: column;
-
+    padding-right: 0;
+    padding-left: 0;
     // header_div
     > div {
       width: 100%;
       display: flex;
       justify-content: space-around;
-      > a {
+      > h2 {
         display: block;
+        &.active {
+          color: #fa5252;
+        }
       }
     }
-
-    > nav > ul {
-      flex-direction: column;
-    }
-
     > nav {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      padding-top: 5%;
+      padding-bottom: 5%;
       display: none;
+      background-color: #dee2e6;
+
+      ul {
+        flex-direction: column;
+        text-align: center;
+        > li {
+          width: 250%;
+          margin-bottom: 2%;
+          padding: 2%;
+          &:hover {
+            background-color: #f8f9fa;
+          }
+        }
+      }
     }
 
     > nav.active {
@@ -105,10 +127,12 @@ export default function NavTop() {
     <>
       <NavtopHeader>
         <div className="header_div">
-          <h1>Won Hundred</h1>
-          <a href="#" className="navbar__toogleBtn" onClick={onClick}>
+          <Link to="/">
+            <h1>Won Hundred</h1>
+          </Link>
+          <h2 className="navbar__toogleBtn" onClick={onClick}>
             <i className="fa-solid fa-bars"></i>
-          </a>
+          </h2>
         </div>
 
         <nav className="navbar">
@@ -140,7 +164,9 @@ export default function NavTop() {
               <span>CURRENCY</span>
             </li>
             <li>
-              <span>BAG (0)</span>
+              <Link to="/cartView">
+                <span>BAG (0)</span>
+              </Link>
             </li>
           </ul>
         </nav>
