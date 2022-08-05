@@ -69,20 +69,46 @@ const CartTable = styled.div`
 `;
 
 const TotalInfo = styled.div`
-  border: 1px dotted black;
-
   color: rgba(0, 0, 0, 0.6);
-  width: 100%;
-  height: 10%;
 
   display: flex;
-  justify-content: flex-start;
-
-  margin-top: 10%;
+  justify-content: flex-end;
+  margin-right: 5%;
 
   padding-top: 2%;
   padding-bottom: 2%;
   padding-left: 5%;
+  > div {
+    // 숫자div가 들어있는 div
+    width: 50%;
+    height: 90%;
+    border: 1px dotted black;
+
+    padding-top: 5%;
+    padding-left: 5%;
+    margin-left: 5%;
+
+    display: flex;
+    flex-direction: column;
+    > div {
+      // 숫자
+      width: 100%;
+      height: 7vh;
+    }
+    > span#totalPriceNumber {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 33%;
+
+      margin-top: 5%;
+      margin-bottom: 5%;
+      > span#gkqrP {
+        color: red;
+        font-weight: bold;
+        margin-right: 10%;
+      }
+    }
+  }
 `;
 
 export default function CartView() {
@@ -111,11 +137,14 @@ export default function CartView() {
   // 할인은 아직 구현안함.
   let discount = 0;
 
-  let price = 0;
+  // 총 가격 구하기
+  let totalPrice = 0;
   for (var i = 0; i < ListOfCart.length; i++) {
-    price += WhatsIn[i].price;
+    totalPrice += WhatsIn[i].price * WhatsIn[i].productCount;
+    //    console.log(WhatsIn[i].productCount);
+    console.log(WhatsIn[i].price * WhatsIn[i].productCount);
   }
-  const totalPrice = price;
+  console.log(totalPrice);
 
   const onDelete = (e) => {
     console.log(e);
@@ -194,8 +223,28 @@ export default function CartView() {
           배송ㅂㅣ
         </div> */}
       </CartTable>
-      <TotalInfo>{`상품금액 (${totalPrice}              
-      }) - 할인금액 (0) = 합계 (${totalPrice - discount})`}</TotalInfo>
+      <TotalInfo>
+        <div>
+          {ListOfCart.map((prod) => (
+            <div>
+              + {prod.price} x {prod.productCount} ={" "}
+              {prod.price * prod.productCount}
+              <br />
+              &nbsp; &nbsp;
+            </div>
+          ))}
+          {/* //      `상품금액 (${price}              }) - 할인금액 (0) = 합계 (${totalPrice - discount})`}</TotalInfo> */}
+          {ListOfCart.length > 1 ? (
+            <>
+              <div>ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ</div>
+              <span id="totalPriceNumber">
+                <span id="gkqrP">합계</span>
+                {totalPrice}
+              </span>
+            </>
+          ) : null}
+        </div>
+      </TotalInfo>
     </>
   );
 }
