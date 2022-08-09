@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import productList from "../atoms";
+
 const NavtopHeader = styled.header`
   display: flex;
   align-items: center;
@@ -116,6 +119,8 @@ const NavtopHeader = styled.header`
 `;
 
 export default function NavTop() {
+  const ListOfCart = useRecoilValue(productList);
+
   const onClick = () => {
     const navbar = document.querySelector(".navbar");
     const toggleBtn = document.querySelector(".navbar__toogleBtn");
@@ -166,7 +171,7 @@ export default function NavTop() {
             </li>
             <li>
               <Link to="/cartView">
-                <span>BAG (0)</span>
+                <span>BAG ({ListOfCart.length})</span>
               </Link>
             </li>
           </ul>
