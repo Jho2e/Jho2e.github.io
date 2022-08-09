@@ -160,3 +160,9 @@ a:hover,
 a:active {
   text-decoration: none;
 }
+
+/* 링크 클릭 보라색 흔적 없애기 */
+
+i:hover {
+  cursor: pointer;
+}
