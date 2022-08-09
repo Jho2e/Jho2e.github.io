@@ -7,6 +7,7 @@ export const productList = atom({
     {
       id: 1,
       productName: "흰 옷", // 상품 이름
+      size: "L",
       price: 7000, // 원
       productCount: 3, // 개
       active: true,
