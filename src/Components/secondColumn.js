@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import ProductPage from "../routes/ProductPage";
 
 const Gallery2Column = styled.div`
   padding-right: 5%;
@@ -155,7 +154,7 @@ export default function SecondColumn({ product }) {
             <img alt="profile" src={cloth} />
           </div>
         </ClothImg>
-        <button onClick={onMoveToProduct}>VIEW ALL PRODUCTS</button>
+        <button onClick={onMoveToProduct}>VIEW PRODUCTS</button>
       </Gallery2Column>
 
       <Link to="products">link to "products"</Link>

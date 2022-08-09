@@ -13,9 +13,6 @@ onClick={() => setCartList((prevList) => [...prevList, addBooks])}
 */
 
 export default function ProductPage() {
-  const ListOfCart = useRecoilValue(productList);
-  const setCartList = useSetRecoilState(productList);
-
   return (
     <>
       <NavTop />
