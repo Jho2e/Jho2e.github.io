@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Gallery2Column = styled.div`
@@ -156,8 +155,6 @@ export default function SecondColumn({ product }) {
         </ClothImg>
         <button onClick={onMoveToProduct}>VIEW PRODUCTS</button>
       </Gallery2Column>
-
-      <Link to="products">link to "products"</Link>
     </>
   );
 }

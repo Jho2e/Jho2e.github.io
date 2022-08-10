@@ -283,45 +283,6 @@ export default function CartView() {
     <>
       <NavTop /> {/* 상단 메뉴 */}
       <h1>장바구니 ({ListOfCart.length})</h1>
-      {/* 임시 상품추가 버튼 */}
-      <div
-        style={{
-          marginTop: "1%",
-          display: "flex",
-        }}
-      >
-        <div
-          style={{
-            marginRight: "5%",
-            backgroundColor: "wheat",
-            width: "33%",
-          }}
-          onClick={() => setCartList((prevList) => [...prevList, addWhite])}
-        >
-          흰 옷 추가 (※ 1번만 클릭)
-        </div>
-        <div
-          style={{
-            marginRight: "5%",
-            border: "1px soild black",
-            backgroundColor: "green",
-            width: "33%",
-          }}
-          onClick={() => setCartList((prevList) => [...prevList, addblues])}
-        >
-          파란 옷 추가 (※ 1번만 클릭)
-        </div>
-        <div
-          style={{
-            border: "1px soild black",
-            backgroundColor: "skyblue",
-            width: "33%",
-          }}
-          onClick={() => setCartList((prevList) => [...prevList, addBooks])}
-        >
-          검은 옷 추가 (※ 1번만 클릭)
-        </div>
-      </div>
       {/* 장바구니가 비었을 경우 표시 */}
       {ListOfCart.length > 0 ? null : (
         <h2

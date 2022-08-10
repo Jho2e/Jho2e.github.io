@@ -1,8 +1,37 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import "./slickStyle.css";
 import "./slick-theme.css";
+
+const ToTheMoon = styled.div`
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 30px;
+
+  > button {
+    width: 150px;
+    padding-top: 1%;
+    padding-bottom: 1%;
+
+    font-weight: 500;
+    font-size: 0.8em;
+    letter-spacing: 2px;
+
+    border: none;
+
+    margin-bottom: 8%;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #aba79a;
+      transition: all 0.3s ease-in-out;
+    }
+  }
+`;
 
 export default class SimpleSlider extends Component {
   render() {
@@ -15,8 +44,14 @@ export default class SimpleSlider extends Component {
       autoplay: true,
     };
     return (
+      // <Link to="products">link to "products"</Link>
       <div className="slider__slick">
-        <h2> Single Item</h2>
+        <ToTheMoon>
+          <Link to="products">
+            <button>모든 상품 보러가기</button>
+          </Link>
+        </ToTheMoon>
+
         <Slider {...settings}>
           <div>
             <span>1</span>
