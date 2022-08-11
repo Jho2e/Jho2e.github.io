@@ -22,6 +22,8 @@ body {
   padding-top: 36.1px;
 
   overflow:auto;
+
+  
 }
 
 code {
@@ -65,8 +67,8 @@ function Router() {
       <Routes>
         <Route path="/" element={<App />}></Route>
         <Route path="/cartView" element={<CartView />}></Route>
-        <Route path="products/*" element={<ProductPage />} />
-        <Route path=":ItemId" element={<ItemDetail />}></Route>
+        <Route path="products/*" element={<ProductPage />}></Route>
+        <Route path="/products/:ItemId" element={<ItemDetail />}></Route>
       </Routes>
     </BrowserRouter>
   );

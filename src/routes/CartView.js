@@ -15,7 +15,8 @@ const CartTable = styled.div`
   display: grid;
   width: 100%;
   height: 400px;
-  grid-template-columns: 0.7fr 2fr 5fr 2fr 1fr;
+  //  grid-template-columns: 0.7fr 2fr 5fr 2fr 1fr;
+  grid-template-columns: 70px 200px 500px 200px 100px;
 
   > div,
   a {
@@ -52,7 +53,43 @@ const CartTable = styled.div`
   }
 
   // 도착예정일 /상품 개수 확인/변경(input창)
-  div.productCounts {
+  > div.productCounts {
+    display: flex;
+    flex-direction: column;
+    > div {
+      // xx개
+      border: none;
+    }
+    > div:first-child {
+      //xx개
+    }
+    > div:nth-child(3) {
+      //화살표 아이콘 내장한 div
+      display: flex;
+      > div {
+        border: none;
+      }
+      i {
+        width: 15px;
+        height: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 5px;
+        border: 1px solid black;
+        border-radius: 7.5px;
+        opacity: 0.5;
+      }
+      i:hover {
+        opacity: 1;
+      }
+      > i:first-child {
+        margin-right: 10px;
+      }
+      > i:nth-child(2) {
+      }
+    }
   }
 
   // 가격 / 삭제버튼
@@ -153,37 +190,6 @@ export default function CartView() {
   const setCartList = useSetRecoilState(productList);
 
   // 클릭 이벤트로 생성할 예정 //
-  const addBooks = {
-    id: 2,
-    productName: "검은 옷", // 상품 이름
-    size: "M",
-    price: 8000, // 원
-    productCount: 1, // 개
-    active: true,
-    deliveryDay: 2,
-    imgUrl: "http://image.auction.co.kr/itemimage/19/79/4a/19794a35d3.jpg",
-  };
-  const addblues = {
-    id: 3,
-    productName: "파란 옷", // 상품 이름
-    size: "S",
-    price: 9000, // 원
-    productCount: 1, // 개
-    active: true,
-    deliveryDay: 2,
-    imgUrl:
-      "data:image/png;base64,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",
-  };
-  const addWhite = {
-    id: 1,
-    productName: "흰 옷", // 상품 이름
-    size: "L",
-    price: 7000, // 원
-    productCount: 3, // 개
-    active: true,
-    deliveryDay: 2,
-    imgUrl: "https://t1.daumcdn.net/cfile/tistory/127E30425061A49419",
-  };
 
   /* 
   새로 장바구니 배열에 추가
@@ -227,35 +233,61 @@ export default function CartView() {
   // 클릭한 휴지통의 id (= prod.id)와
   // 같은 id의 상품을 리스트에서 삭제.
   const onDelete = (e) => {
-    const newlist = ListOfCart.filter(
+    const newDeleteList = ListOfCart.filter(
       (list) => Number(list.id) !== Number(e.target.id)
     );
-    setCartList(newlist);
+    setCartList(newDeleteList);
   };
 
   // 체크 ON/OFF버튼
   const onToggle = (e) => {
     console.log(e.target.id);
 
-    const newlist = ListOfCart.map((list) =>
+    const newActivelist = ListOfCart.map((list) =>
       Number(list.id) === Number(e.target.id)
         ? { ...list, active: !list.active }
         : list
     );
-    setCartList(newlist);
+    setCartList(newActivelist);
   };
 
-  /*  let totalPrice = 0;
-  ListOfCart.forEach((prod) => {
-    console.log(prod);
-    prod.active
-      ? (totalPrice += prod.price * prod.productCount)
-      : (totalPrice += 0);
-    console.log(totalPrice);
-  }); */
+  // 버튼의 아이디와 상품의 아이디가 같다면, obj.prouductCount를 +1 또는 -1
+  const onChangeCount = (e) => {
+    const newCountList = ListOfCart;
+
+    if (e.target.className === "fa-solid fa-arrow-up") {
+      let newlist = newCountList.map((list) =>
+        Number(list.id) === Number(e.target.id)
+          ? { ...list, productCount: list.productCount + 1 }
+          : { ...list }
+      );
+      setCartList(newlist);
+    } else if (e.target.className === "fa-solid fa-arrow-down") {
+      let newlist = newCountList.map((list) =>
+        Number(list.id) === Number(e.target.id)
+          ? { ...list, productCount: list.productCount - 1 }
+          : { ...list }
+      );
+      setCartList(newlist);
+    }
+
+    /*  for (var i = 0; i < ListOfCart.length; i++) {
+      if (Number(ListOfCart[i].productCount) === 0) {
+        console.log("발견");
+        console.log(ListOfCart[i]);
+        //        ListOfCart[i] = { ...ListOfCart[i], productCount: ListOfCart[i] + 1 };
+      }
+    } */
+  };
+
+  // const onChangeUp = (e) => {
+  //   console.log(e);
+  // };
+  // const onChangeDown = (e) => {
+  //   console.log(e);
+  // };
 
   // 총 가격
-  //  const [totalPrice, setTotalPrice] = useState(0);
   let tp = 0;
   ListOfCart.forEach((prod) => {
     prod.active ? (tp += prod.price * prod.productCount) : (tp += 0);
@@ -276,37 +308,43 @@ export default function CartView() {
     setTotalShow((prev) => !prev);
   };
 
-  console.log("마지막 totalShow 확인", totalShow);
-  console.log("마지막 isExist 확인", isExist);
+  //  const [howMany, setHowMany] = useState(1);
 
   return (
     <>
       <NavTop /> {/* 상단 메뉴 */}
       <h1>장바구니 ({ListOfCart.length})</h1>
-      {/* 장바구니가 비었을 경우 표시 */}
-      {ListOfCart.length > 0 ? null : (
-        <h2
-          style={{
-            width: "100%",
-            marginTop: "30%",
-            top: "50%",
-            textAlign: "center",
-            fontSize: "1.5rem",
-            fontWeight: "bold",
-          }}
-        >
-          장바구니가 비었습니다. 상품을 담아주세요.
-        </h2>
-      )}
-      {/* 상품이미지 , 개수 ,가격 등 "표" */}
-      <CartTable style={isExist ? {} : {}}>
-        {ListOfCart.map((prod) => (
-          <>
-            <div>
-              <div
-                className="checkBoxs"
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifycontent: "center",
+        }}
+      >
+        {/* 장바구니가 비었을 경우 표시 */}
+        {ListOfCart.length > 0 ? null : (
+          <h2
+            style={{
+              width: "100%",
+              marginTop: "30%",
+              top: "50%",
+              textAlign: "center",
+              fontSize: "1.5rem",
+              fontWeight: "bold",
+            }}
+          >
+            장바구니가 비었습니다. 상품을 담아주세요.
+          </h2>
+        )}
+        {/* 상품이미지 , 개수 ,가격 등 "표" */}
+        <CartTable style={isExist ? {} : {}}>
+          {ListOfCart.map((prod) => (
+            <>
+              <div>
+                <div
+                  className="checkBoxs"
 
-                /*  // 체크 토글버튼
+                  /*  // 체크 토글버튼
                 onClick={() => {
 
                   if (ListOfCart.length < 2) {
@@ -316,54 +354,76 @@ export default function CartView() {
                   };
                 }}
                 */
-              >
-                {prod.active ? (
-                  <i
-                    className="fa-solid fa-check"
-                    id={prod.id}
-                    onClick={onToggle}
-                  ></i>
-                ) : (
-                  <i
-                    className="fa-regular fa-square"
-                    id={prod.id}
-                    onClick={onToggle}
-                  ></i>
-                )}
+                >
+                  {prod.active ? (
+                    // 체크표시가 true &0개 이상 일 경우
+                    <i
+                      className="fa-solid fa-check"
+                      id={prod.id}
+                      onClick={onToggle}
+                    ></i>
+                  ) : (
+                    <i
+                      className="fa-regular fa-square"
+                      id={prod.id}
+                      onClick={onToggle}
+                    ></i>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div>
-              <Link className="prodImgs" to="/">
-                <img src={prod.imgUrl} alt="profile" />
-                {prod.productName} <br />
-                <span>({prod.size})</span>
-              </Link>
-            </div>
+              <div>
+                <Link className="prodImgs" to="/">
+                  <img src={prod.imgUrl} alt="profile" />
+                  {prod.productName} <br />
+                  <span>({prod.size})</span>
+                </Link>
+              </div>
 
-            <div className="productCounts">
-              <div>{`${prod.productCount}개/ 변경(input창)`} </div>
-            </div>
+              <div className="productCounts">
+                <div>{`${prod.productCount}개`} </div>
+                <br />
+                <div>
+                  <div
+                  // id={prod.id} onClick={onChangeUp}
+                  >
+                    <i
+                      id={prod.id}
+                      className="fa-solid fa-arrow-up"
+                      onClick={onChangeCount}
+                    ></i>
+                  </div>
+                  <div
+                  //</div> id={prod.id} onClick={onChangeDown}
+                  >
+                    <i
+                      id={prod.id}
+                      className="fa-solid fa-arrow-down"
+                      onClick={onChangeCount}
+                    ></i>
+                  </div>
+                </div>
+              </div>
 
-            <div className="productPrices">
-              {prod.price}원
-              <i
-                className="fa-solid fa-trash-can"
-                onClick={onDelete}
-                id={prod.id}
-              ></i>
-            </div>
+              <div className="productPrices">
+                {prod.price}원
+                <i
+                  className="fa-solid fa-trash-can"
+                  onClick={onDelete}
+                  id={prod.id}
+                ></i>
+              </div>
 
-            <div className="deliveryInfos">
-              {/*
+              <div className="deliveryInfos">
+                {/*
               <span>{prod.deliveryFee}원</span>
             */}
-              <span>{prod.deliveryDay}일</span>
-            </div>
-          </>
-        ))}
+                <span>{prod.deliveryDay}일</span>
+              </div>
+            </>
+          ))}
 
-        {/*     <div
+          {/*     <div
           onClick={() => {
             setDone((prev) => !prev);
           }}
@@ -384,51 +444,52 @@ export default function CartView() {
           
           배송ㅂㅣ
         </div> */}
-      </CartTable>
-      {/* 클릭해야 확인할수 있게 바꿀 예정인, 총 합계 표시. 
+        </CartTable>
+        {/* 클릭해야 확인할수 있게 바꿀 예정인, 총 합계 표시. 
       position: "fixed", bottom: "1%" 
       */}
-      <TotalInfo style={isExist ? {} : {}}>
-        {/* // style={ isSpecial ? { color:'blue'} : {color : 'red'} */}
-        <div
-          style={
-            isExist & totalShow
-              ? { border: "1px solid black", height: "auto" }
-              : { display: "none" }
-          }
-        >
-          {ListOfCart.map((prod) =>
-            prod.active ? (
-              <div>
-                + {prod.price} x {prod.productCount} ={" "}
-                {prod.price * prod.productCount}
-                <br />
-                &nbsp; &nbsp;
-              </div>
-            ) : null
-          )}
-          {/* //      `상품금액 (${price}              }) - 할인금액 (0) = 합계 (${totalPrice - discount})`}</TotalInfo> */}
-
-          {ListOfCart.length > 1 ? (
-            <>
-              {Number(tp) === 0 ? null : (
-                <div id="mm" style={{ height: "15px" }}>
-                  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        <TotalInfo style={isExist ? {} : {}}>
+          {/* // style={ isSpecial ? { color:'blue'} : {color : 'red'} */}
+          <div
+            style={
+              isExist & totalShow
+                ? { border: "1px solid black", height: "auto" }
+                : { display: "none" }
+            }
+          >
+            {ListOfCart.map((prod) =>
+              prod.active ? (
+                <div>
+                  + {prod.price} x {prod.productCount} ={" "}
+                  {prod.price * prod.productCount}
+                  <br />
+                  &nbsp; &nbsp;
                 </div>
-              )}
-              <span id="totalPriceNumber">
-                -할인 ({discount}) &nbsp;&nbsp;&nbsp;
-                <span id="gkqrP">합계 {tp}</span>
-              </span>
-            </>
-          ) : null}
-        </div>
-        {tp !== 0 ? (
-          <PlusBtn onClick={showTotal}>=</PlusBtn>
-        ) : (
-          <PlusBtn onClick={showTotal}>=</PlusBtn>
-        )}
-      </TotalInfo>
+              ) : null
+            )}
+            {/* //      `상품금액 (${price}              }) - 할인금액 (0) = 합계 (${totalPrice - discount})`}</TotalInfo> */}
+
+            {ListOfCart.length > 1 ? (
+              <>
+                {Number(tp) === 0 ? null : (
+                  <div id="mm" style={{ height: "15px" }}>
+                    ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                  </div>
+                )}
+                <span id="totalPriceNumber">
+                  -할인 ({discount}) &nbsp;&nbsp;&nbsp;
+                  <span id="gkqrP">합계 {tp}</span>
+                </span>
+              </>
+            ) : null}
+          </div>
+          {tp !== 0 ? (
+            <PlusBtn onClick={showTotal}>=</PlusBtn>
+          ) : (
+            <PlusBtn onClick={showTotal}>=</PlusBtn>
+          )}
+        </TotalInfo>
+      </div>
     </>
   );
 }

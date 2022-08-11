@@ -94,7 +94,7 @@ export default function ProductPage() {
         {AllProductList.map((prod) => (
           <>
             <div>
-              <Link to={`/${prod.id}${prod.productName}`}>
+              <Link to={`/products/${prod.id}${prod.productName}`}>
                 {/* <Link to="/">*/}
                 <img src={prod.imgUrl} alt="profile" />
               </Link>

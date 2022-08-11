@@ -77,6 +77,11 @@ const NavtopHeader = styled.header`
     flex-direction: column;
     padding-right: 0;
     padding-left: 0;
+    opacity: 0.8;
+    &:hover {
+      opacity: 0.9;
+    }
+
     // header_div
     > div {
       width: 100%;
@@ -85,7 +90,7 @@ const NavtopHeader = styled.header`
       > h2 {
         display: block;
         &.active {
-          color: #fa5252;
+          color: #d9480f;
         }
       }
     }
