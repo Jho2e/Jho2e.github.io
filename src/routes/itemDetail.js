@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
@@ -69,29 +69,35 @@ const ShowDetail = styled.div`
     }
     > div:nth-child(4) {
       // 인풋창
-
-      padding: 50px;
-      border: 1px solid black;
     }
     > div:nth-child(5) {
       // 개수 정하는 인풋 / 장바구니 담기 / 바로구매
-      padding-left: 0%;
+      padding-left: 0;
+
       display: grid;
-      grid-template-columns: 30px 150px 150px;
+      grid-template-columns: 80px 150px 150px;
       grid-template-rows: 50px;
 
       grid-gap: 30px;
       > div {
         // 인풋과 버튼이 내장된 div
-        width: 30px;
+        width: 80px;
 
         display: flex;
         > input {
           text-align: center;
           font-size: 15px;
-          width: 20px;
+          width: 45px;
+
+          position: relative;
         }
         > div {
+          position: absolute;
+          left: 460px;
+
+          display: flex;
+          flex-direction: column;
+
           > button {
             z-index: 30;
           }
@@ -204,11 +210,86 @@ const ShowDetail = styled.div`
   }
 `;
 
+const SelectOption = styled.div`
+  width: 100%;
+  height: 420px;
+  //  background-image: linear-gradient(#443364, #730228);
+  background-color: rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  > div.selector {
+    width: 350px;
+
+    > div#selectField {
+      width: 100%;
+      height: 100px;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      box-sizing: border-box;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      cursor: pointer;
+      > img {
+        width: 60px;
+        height: 60px;
+        padding-right: 25px;
+      }
+      > i {
+        width: 12px;
+
+        transition: transform 0.1s;
+      }
+      > i.rotate {
+        transform: rotate(180deg);
+      }
+    }
+    > ul#list {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 6px;
+      overflow: hidden;
+
+      > li.options {
+        width: 100%;
+        padding: 15px 0 15px 0;
+        list-style: none;
+        cursor: pointer;
+        box-sizing: border-box;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.9);
+        }
+
+        // 내가 작성 여기부터
+        display: flex;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+        > img {
+          width: 60px;
+          height: 60px;
+          padding-left: 25px;
+          padding-right: 25px;
+          // 여기까지 내가 작성
+        }
+      }
+    }
+    > ul.hide {
+      visibility: hidden;
+    }
+  }
+`;
+
 export default function ItemDetail() {
   const [howMany, setHowMany] = useState(1);
 
   const ItemName = useParams();
-  console.log(ItemName);
+  console.log("ItemName", ItemName);
   /*{ItemId: '1흰 옷'} {ItemId: '2검은 옷'} {ItemId: '3파란 옷'}*/
 
   const AllList = useRecoilValue(AllProductList);
@@ -237,39 +318,79 @@ export default function ItemDetail() {
         active: AllList[i].active,
         deliveryDay: AllList[i].deliveryDay,
         imgUrl: AllList[i].imgUrl,
+        imgUrl2: AllList[i].imgUrl2,
+        imgUrl3: AllList[i].imgUrl3,
+        color: AllList[i].color,
+        color2: AllList[i].color2,
+        color3: AllList[i].color3,
       };
     }
   }
   let wantShow = { ...selectItemInfo };
 
+  // 장바구니 담기 버튼
   const onChange = () => {
-    // 장바구니 담기 버튼
+    // 개수
+    wantShow["countFinal"] = Number(howMany);
+    // 장바구니에서의 img
+    wantShow["imgFinal"] = mainImg;
+    // 장바구니에서의 색깔
+    wantShow["colorFinal"] = `${whatColorNow}`;
 
-    wantShow["productCount"] = Number(howMany);
     setCartList((prevList) => [...prevList, wantShow]);
     //   moveToCart();
     ChangeAreYouMove();
   };
 
+  // 장바구니 바로가기
   const [areYouMove, setAreYouMove] = useState(false);
   const ChangeAreYouMove = () => {
     setAreYouMove((prev) => !prev);
   };
 
+  const [whatIsNow, setWhatIsNow] = useState("상품을 골라주세요.");
+  const [whatIsNowImgUrl, setWhatIsNowImgUrl] = useState("");
+  const [isHidden, setIsHidden] = useState(true);
+  const [mainImg, setMainImg] = useState(wantShow["imgUrl"]);
+  const [whatColorNow, setWhatColorNow] = useState(wantShow["color"]);
+
+  console.log("wantshow의 imgurl", wantShow["imgUrl"]);
+
+  const onChangeWhatIsNow = (e) => {
+    console.log("e", e);
+    console.log("e.target", e.target);
+    console.log("e.target.children", e.target.children);
+    console.log("e가 어쩌고", e.target.children[0]);
+    console.log("currentSrc", e.target.children[0].currentSrc);
+
+    setWhatIsNowImgUrl(e.target.children[0].currentSrc);
+    setWhatIsNow(e.target.innerText);
+    setMainImg(e.target.children[0].currentSrc);
+    setWhatColorNow(e.target.innerText);
+  };
+
+  const toggleHiddenUl = () => {
+    setIsHidden((prev) => !prev);
+  };
+
   return (
     <>
       <NavTop />
-      {/* 1흰 옷 OR 2검은 옷 OR 3파란 옷 */}
       <ShowDetail>
         <div className="div__img">
-          <img src={wantShow["imgUrl"]} alt="profile" />
+          <img src={mainImg} alt="profile" />
         </div>
 
         <div className="div__text">
           <div>
             <h1>
               {`${wantShow["productName"]}`}
-              <span style={{ fontSize: "10px" }}>( 찜 기능 나중에 추가)</span>
+              <span style={{ marginLeft: "5px", fontSize: "12px" }}>
+                ({whatColorNow})
+              </span>
+              <span style={{ marginLeft: "10px", fontSize: "10px" }}>
+                ( 찜 기능 나중에 추가)
+              </span>
             </h1>
           </div>
           <div>
@@ -279,9 +400,66 @@ export default function ItemDetail() {
             <span>{`배송일 :  ${wantShow["deliveryDay"]}일 (무료배송)`}</span>
           </div>
 
-          <div>
-            <h1>인풋창</h1>
-          </div>
+          {/*  
+          select - option ( 쿠팡처럼 스크롤속 사진 / text 첨부 )
+            개수 / 사이즈 / 색깔 선택하도록 변경예정 
+            */}
+          <SelectOption>
+            <div className="selector">
+              <div id="selectField" onClick={toggleHiddenUl}>
+                <p id="selectText">{whatIsNow}</p>
+                {whatIsNow === "상품을 골라주세요." ? null : (
+                  <img src={whatIsNowImgUrl} alt="profile" />
+                )}
+                {isHidden ? (
+                  <i className="fa-solid fa-angle-down"></i>
+                ) : (
+                  <i className="fa-solid fa-angle-down rotate"></i>
+                )}
+              </div>
+
+              {isHidden ? (
+                <ul id="list" className="hide">
+                  <li className="options" onClick={onChangeWhatIsNow}>
+                    <img src={wantShow["imgUrl"]} alt="profile" />
+                    <p>{wantShow["color"]}</p>
+                  </li>
+                  <li className="options" onClick={onChangeWhatIsNow}>
+                    <img src={wantShow["imgUrl2"]} alt="profile" />
+                    <p>{wantShow["color2"]}</p>
+                  </li>
+                  <li className="options" onClick={onChangeWhatIsNow}>
+                    <img src={wantShow["imgUrl3"]} alt="profile" />
+                    <p>{wantShow["color3"]}</p>
+                  </li>
+                </ul>
+              ) : (
+                // 보일때
+                <ul id="list">
+                  <li
+                    className="options"
+                    onClick={onChangeWhatIsNow}
+                    data-set={wantShow["imgUrl"]}
+                  >
+                    <img
+                      src={wantShow["imgUrl"]}
+                      alt="profile"
+                      data-set={wantShow["imgUrl2"]}
+                    />
+                    <p>{wantShow["color"]}</p>
+                  </li>
+                  <li className="options" onClick={onChangeWhatIsNow}>
+                    <img src={wantShow["imgUrl2"]} alt="profile" />
+                    <p>{wantShow["color2"]}</p>
+                  </li>
+                  <li className="options" onClick={onChangeWhatIsNow}>
+                    <img src={wantShow["imgUrl3"]} alt="profile" />
+                    <p>{wantShow["color3"]}</p>
+                  </li>
+                </ul>
+              )}
+            </div>
+          </SelectOption>
 
           <div>
             <div style={{ fontSize: "10px" }}>
@@ -293,10 +471,10 @@ export default function ItemDetail() {
               ></input>
               <div>
                 <button onClick={() => setHowMany((prev) => prev + 1)}>
-                  +1
+                  ▲
                 </button>
                 <button onClick={() => setHowMany((prev) => prev - 1)}>
-                  -1
+                  ▼
                 </button>
               </div>
             </div>

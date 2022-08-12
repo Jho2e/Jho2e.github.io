@@ -1,109 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import NavTop from "../Components/nav-top";
-import { Link } from "react-router-dom";
 
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import productList from "../atoms";
-
-const CartTable = styled.div`
-  z-index: 15000;
-  margin-top: 30px;
-  margin-bottom: 100px;
-  overflow: auto;
-
-  display: grid;
-  width: 100%;
-  height: 400px;
-  //  grid-template-columns: 0.7fr 2fr 5fr 2fr 1fr;
-  grid-template-columns: 70px 200px 500px 200px 100px;
-
-  > div,
-  a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  div {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-  }
-
-  // 체크박스
-  > div > div.checkBoxs {
-    width: 100%;
-    height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  //제품사진
-  div > a.prodImgs {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-    > img {
-      width: 50%;
-      height: 40%;
-      object-fit: cover;
-    }
-  }
-
-  // 도착예정일 /상품 개수 확인/변경(input창)
-  > div.productCounts {
-    display: flex;
-    flex-direction: column;
-    > div {
-      // xx개
-      border: none;
-    }
-    > div:first-child {
-      //xx개
-    }
-    > div:nth-child(3) {
-      //화살표 아이콘 내장한 div
-      display: flex;
-      > div {
-        border: none;
-      }
-      i {
-        width: 15px;
-        height: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        padding: 5px;
-        border: 1px solid black;
-        border-radius: 7.5px;
-        opacity: 0.5;
-      }
-      i:hover {
-        opacity: 1;
-      }
-      > i:first-child {
-        margin-right: 10px;
-      }
-      > i:nth-child(2) {
-      }
-    }
-  }
-
-  // 가격 / 삭제버튼
-  > div.productPrices {
-    display: flex;
-    flex-direction: column;
-  }
-
-  // 배송예정일, 배송비
-  > div.deliveryInfos {
-    display: flex;
-    flex-direction: column;
-  }
-`;
+import CartTable from "../Components/cartTable";
 
 const TotalInfo = styled.div`
   position: fixed;
@@ -116,14 +17,7 @@ const TotalInfo = styled.div`
 
   display: flex;
   justify-content: flex-end;
-  /*  
-  width: 100%;
-  padding-right: 5%;
-  width: 90%;
-  
-  padding-top: 2%;
-  padding-bottom: 2%;
-  padding-left: 5%; */
+
   > div {
     border-radius: 40px;
     background-color: #ffd43b;
@@ -188,54 +82,20 @@ const PlusBtn = styled.button`
 export default function CartView() {
   const ListOfCart = useRecoilValue(productList);
   const setCartList = useSetRecoilState(productList);
-
-  // 클릭 이벤트로 생성할 예정 //
-
-  /* 
-  새로 장바구니 배열에 추가
-  onClick={() =>
-                setCartList((prevList) => [...prevList, NewProduct])
-              } */
-  //  setCartList((prevList) => [...prevList]);
+  console.log("listofcart확인용", ListOfCart);
 
   // 할인은 아직 구현안함.
   let discount = 0;
 
-  // 총 가격 구하기
-  //  let totalPrice = 0;
-
-  //  console.log("토탈 1st", totalPrice);
-  //  console.log("길이", ListOfCart.length);
-
-  /*  const [totalPrice], setTotalPrice] = useState(0);
-
-  for (var i = 0; i < ListOfCart.length; i++) {
-    if (ListOfCart[i].active === true) {
-      setTotalPrice(Number(ListOfCart[i].price * ListOfCart[i].productCount));
-    }
- */
-
-  /*
-  바뀌긴하는데 리렌더링이 안됨.
-  const price = ListOfCart.reduce((acc, cur) => {
-    if (cur.active) {
-      acc += cur.price;
-    }
-    return acc;
-  }, 0);
-
-  console.log(price); 
-  */
-
-  //    console.log("토탈 2nd", price);
-
   // 장바구니 지우기 버튼
-  // 클릭한 휴지통의 id (= prod.id)와
-  // 같은 id의 상품을 리스트에서 삭제.
+
   const onDelete = (e) => {
     const newDeleteList = ListOfCart.filter(
-      (list) => Number(list.id) !== Number(e.target.id)
+      (list) =>
+        `fa-solid fa-trash-can ${list.colorFinal} ${list.productName}` !==
+        e.target.attributes[0].value
     );
+
     setCartList(newDeleteList);
   };
 
@@ -279,13 +139,6 @@ export default function CartView() {
       }
     } */
   };
-
-  // const onChangeUp = (e) => {
-  //   console.log(e);
-  // };
-  // const onChangeDown = (e) => {
-  //   console.log(e);
-  // };
 
   // 총 가격
   let tp = 0;
@@ -337,114 +190,7 @@ export default function CartView() {
           </h2>
         )}
         {/* 상품이미지 , 개수 ,가격 등 "표" */}
-        <CartTable style={isExist ? {} : {}}>
-          {ListOfCart.map((prod) => (
-            <>
-              <div>
-                <div
-                  className="checkBoxs"
-
-                  /*  // 체크 토글버튼
-                onClick={() => {
-
-                  if (ListOfCart.length < 2) {
-                    // 최대 4개
-                    setCartList((prevList) => [...prevList, addBooks]);
-                    //  setCartList((prevList)=>[{...prevList},{...prevList, prevList.check = !prevList.check}]) 
-                  };
-                }}
-                */
-                >
-                  {prod.active ? (
-                    // 체크표시가 true &0개 이상 일 경우
-                    <i
-                      className="fa-solid fa-check"
-                      id={prod.id}
-                      onClick={onToggle}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fa-regular fa-square"
-                      id={prod.id}
-                      onClick={onToggle}
-                    ></i>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <Link className="prodImgs" to="/">
-                  <img src={prod.imgUrl} alt="profile" />
-                  {prod.productName} <br />
-                  <span>({prod.size})</span>
-                </Link>
-              </div>
-
-              <div className="productCounts">
-                <div>{`${prod.productCount}개`} </div>
-                <br />
-                <div>
-                  <div
-                  // id={prod.id} onClick={onChangeUp}
-                  >
-                    <i
-                      id={prod.id}
-                      className="fa-solid fa-arrow-up"
-                      onClick={onChangeCount}
-                    ></i>
-                  </div>
-                  <div
-                  //</div> id={prod.id} onClick={onChangeDown}
-                  >
-                    <i
-                      id={prod.id}
-                      className="fa-solid fa-arrow-down"
-                      onClick={onChangeCount}
-                    ></i>
-                  </div>
-                </div>
-              </div>
-
-              <div className="productPrices">
-                {prod.price}원
-                <i
-                  className="fa-solid fa-trash-can"
-                  onClick={onDelete}
-                  id={prod.id}
-                ></i>
-              </div>
-
-              <div className="deliveryInfos">
-                {/*
-              <span>{prod.deliveryFee}원</span>
-            */}
-                <span>{prod.deliveryDay}일</span>
-              </div>
-            </>
-          ))}
-
-          {/*     <div
-          onClick={() => {
-            setDone((prev) => !prev);
-          }}
-          >
-          {done ? <MdCheckBoxOutlineBlank /> : <MdDone />}
-          </div>
-          <div>
-          <Link to="/">제품사진</Link>
-          </div>
-          <div>도착예정일 /상품 개수 확인/변경(input창) </div>
-        <div>
-          <MdDelete />
-        </div>
-
-        <div
-          onClick={() => setCartList((prevList) => [...prevList, NewProduct])}
-        >
-          
-          배송ㅂㅣ
-        </div> */}
-        </CartTable>
+        <CartTable></CartTable>
         {/* 클릭해야 확인할수 있게 바꿀 예정인, 총 합계 표시. 
       position: "fixed", bottom: "1%" 
       */}
